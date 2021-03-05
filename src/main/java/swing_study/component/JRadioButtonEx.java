@@ -22,8 +22,11 @@ public class JRadioButtonEx extends JFrame implements ItemListener {
 
 	private JPanel contentPane;
 	private String imgPath = System.getProperty("user.dir") + File.separator + "image" + File.separator;;
-	private ImageIcon[] icons = { new ImageIcon(imgPath + "31.jpg"), new ImageIcon(imgPath + "32.jpg"),
-			new ImageIcon(imgPath + "33.jpg") };
+	private ImageIcon[] icons = {
+			new ImageIcon(imgPath + "31.jpg"),
+			new ImageIcon(imgPath + "32.jpg"),
+			new ImageIcon(imgPath + "33.jpg")
+	};
 	private JLabel lblimg;
 
 	public JRadioButtonEx() {
