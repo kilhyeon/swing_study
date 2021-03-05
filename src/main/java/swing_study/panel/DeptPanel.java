@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
+@SuppressWarnings("serial")
 public class DeptPanel extends JPanel {
 	private JTextField tfDeptNo;
 	private JTextField tfDeptName;

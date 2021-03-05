@@ -47,9 +47,10 @@ public class Department {
 		this.floor = floor;
 	}
 
+	
 	@Override
 	public String toString() {
-		return String.format("Department [deptNo=%s, deptName=%s, floor=%s]", deptNo, deptName, floor);
+		return String.format("%s %s(%d)", deptNo, deptName, floor);
 	}
 
 }
