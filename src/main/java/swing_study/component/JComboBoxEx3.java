@@ -4,14 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -22,27 +23,22 @@ import swing_study.panel.DeptPanel;
 public class JComboBoxEx3 extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
-	private List<Department> deptList = new Vector<Department>();
-	private JButton btnAdd;
+	private List<Department> deptList;
+	private JComboBox<Department> cmbDept;
 	private JButton btnOk;
-	private JComboBox cmbDept;
+	private JButton btnAdd;
+	private DeptPanel pDept;
 
 	public JComboBoxEx3() {
-		initialize();
-		
+		deptList = new ArrayList<Department>();
 		deptList.add(new Department(1, "기획", 8));
 		deptList.add(new Department(2, "영업", 18));
 		deptList.add(new Department(3, "개발", 28));
-		
-		addDataCmb();
-	}
 
-	private void addDataCmb() {
-		DefaultComboBoxModel cbm = (DefaultComboBoxModel) cmbDept.getModel();
-		for (Department d : deptList) {
-			cbm.addElement(d);
-		}
+		initialize();
 		
+		cmbDept.setModel(new DefaultComboBoxModel<Department>(new Vector<>(deptList)));
+		cmbDept.setSelectedIndex(-1);
 	}
 
 	private void initialize() {
@@ -58,7 +54,7 @@ public class JComboBoxEx3 extends JFrame implements ActionListener {
 		contentPane.add(pLeft);
 		pLeft.setLayout(new BorderLayout(0, 0));
 
-		DeptPanel pDept = new DeptPanel();
+		pDept = new DeptPanel();
 		pLeft.add(pDept, BorderLayout.CENTER);
 
 		JPanel pBtn = new JPanel();
@@ -72,7 +68,7 @@ public class JComboBoxEx3 extends JFrame implements ActionListener {
 		contentPane.add(pRight);
 		pRight.setLayout(new GridLayout(0, 1, 0, 0));
 
-		cmbDept = new JComboBox();	
+		cmbDept = new JComboBox();
 		cmbDept.addActionListener(this);
 		pRight.add(cmbDept);
 
@@ -82,9 +78,6 @@ public class JComboBoxEx3 extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == cmbDept) {
-			actionPerformedCmbDept(e);
-		}
 		if (e.getSource() == btnOk) {
 			actionPerformedBtnOk(e);
 		}
@@ -92,15 +85,26 @@ public class JComboBoxEx3 extends JFrame implements ActionListener {
 			actionPerformedBtnAdd(e);
 		}
 	}
-	protected void actionPerformedBtnAdd(ActionEvent e) {
-		
-	}
-	
-	protected void actionPerformedBtnOk(ActionEvent e) {
-		
-	}
-	
-	protected void actionPerformedCmbDept(ActionEvent e) {
 
+	protected void actionPerformedBtnOk(ActionEvent e) {
+		Department selDept = (Department) cmbDept.getSelectedItem();
+		String message = String.format("%s %s %s%n", selDept.getDeptNo(), selDept.getDeptName(), selDept.getFloor());
+		JOptionPane.showMessageDialog(null, message);
 	}
+
+	protected void actionPerformedBtnAdd(ActionEvent e) {
+		Department addDept = pDept.getDepartment();
+
+		if (deptList.contains(addDept)) {
+			JOptionPane.showMessageDialog(null, "중복 아이템");
+			return;
+		}
+
+		DefaultComboBoxModel<Department> model = (DefaultComboBoxModel<Department>) cmbDept.getModel();
+		model.addElement(addDept);
+
+		pDept.clearTf();
+		JOptionPane.showMessageDialog(null, "추가 되었습니다.");
+	}
+
 }
