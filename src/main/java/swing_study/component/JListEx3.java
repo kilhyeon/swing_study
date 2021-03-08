@@ -123,7 +123,7 @@ public class JListEx3 extends JFrame implements ActionListener {
 			Department dept = pLeftCenter.getDepartment();
 			model.set(idx, dept);
 			pLeftCenter.clearTf();
-			
+
 			if (btnAdd.getText().equals("수정")) {
 				btnAdd.setText("추가");
 			}
@@ -146,7 +146,7 @@ public class JListEx3 extends JFrame implements ActionListener {
 	protected void actionPerformedBtnUpdate(ActionEvent e) {
 		Department dept = deptList.getSelectedValue();
 		pLeftCenter.setDepartment(dept);
-		
+
 		if (btnAdd.getText().equals("추가")) {
 			btnAdd.setText("수정");
 		}
@@ -161,11 +161,11 @@ public class JListEx3 extends JFrame implements ActionListener {
 //		int idx = deptList.getSelectedIndex();
 //		Department delDept = model.remove(idx);
 
-//		if(model.getSize() == 0) {
-//			btnDelete.setEnabled(false);
-//		}else {
-//			btnDelete.setEnabled(true);
-//		}
+		if (model.getSize() == 0) {
+			btnDelete.setText("삭제1");
+		} else {
+			btnDelete.setText("삭제2");
+		}
 
 	}
 }
