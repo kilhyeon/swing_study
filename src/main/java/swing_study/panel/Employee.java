@@ -25,6 +25,11 @@ public class Employee {
 		this.dept = dept;
 	}
 
+	public Employee(int empNo, String empName) {
+		this.empNo = empNo;
+		this.empName = empName;
+	}
+
 	public int getEmpNo() {
 		return empNo;
 	}
