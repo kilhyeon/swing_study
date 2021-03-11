@@ -3,13 +3,18 @@ package swing_study;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
@@ -33,12 +38,22 @@ import swing_study.component.JSpinnerEx;
 import swing_study.component.JTabbedPaneEx;
 import swing_study.component.JTableEx;
 import swing_study.component.JTextFieldAreaEx;
+import swing_study.component.JlabelEx1;
+import swing_study.dlg.JFileChooserEx;
+import swing_study.dlg.JOptionPanmeConfirmEx;
+import swing_study.dlg.JOptionPanmeInputEx;
+import swing_study.dlg.JOptionPanmeMessagetEx;
 import swing_study.frame.ContentPaneEx;
 import swing_study.frame.JPanelEx;
 import swing_study.layout.FrameLayout;
 import swing_study.layout.LayoutGuBun;
-import javax.swing.BoxLayout;
-import java.awt.FlowLayout;
+import swing_study.listener.AnonymousClassListener;
+import swing_study.listener.IndepClassListener;
+import swing_study.listener.InnerClassListener;
+import swing_study.listener.JMenuFrameEx;
+import swing_study.listener.JPopupMenuFrameEx;
+import swing_study.listener.MouseAdapterEx;
+import swing_study.listener.MouseListenerEx;
 
 @SuppressWarnings("serial")
 public class SwingMain extends JFrame implements ActionListener {
@@ -143,8 +158,8 @@ public class SwingMain extends JFrame implements ActionListener {
 		contentPane.add(btn03);
 
 		pLableButton = new JPanel();
-		pLableButton.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "JLable & JButton & JToggleButton",
-				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		pLableButton.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
+				"JLable & JButton & JToggleButton", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		contentPane.add(pLableButton);
 		pLableButton.setLayout(new GridLayout(0, 1, 0, 10));
 
@@ -154,7 +169,7 @@ public class SwingMain extends JFrame implements ActionListener {
 
 		btn05 = new JButton("JButton & JToggleButton");
 		btn05.addActionListener(this);
-		
+
 		btn0402 = new JButton("JLableSize");
 		btn0402.addActionListener(this);
 		pLableButton.add(btn0402);
@@ -173,108 +188,281 @@ public class SwingMain extends JFrame implements ActionListener {
 		btn07 = new JButton("JRadioButton");
 		btn07.addActionListener(this);
 		pCheckRadio.add(btn07);
-		
+
 		pText = new JPanel();
 		pText.setBorder(new TitledBorder(null, "텍스트필드", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		contentPane.add(pText);
-		
-		btn08 = new JButton("JTextFieldArea 예제");
+
+		btn08 = new JButton("JTextFieldArea");
 		btn08.addActionListener(this);
 		pText.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		pText.add(btn08);
-		
+
 		pJList = new JPanel();
 		pJList.setBorder(new TitledBorder(null, "JList", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		contentPane.add(pJList);
 		pJList.setLayout(new GridLayout(0, 1, 0, 0));
-		
+
 		btn09 = new JButton("JList예 1");
 		btn09.addActionListener(this);
 		pJList.add(btn09);
-		
+
 		btn10 = new JButton("JList예 2");
 		btn10.addActionListener(this);
 		pJList.add(btn10);
-		
+
 		btn11 = new JButton("JList예 3");
 		btn11.addActionListener(this);
 		pJList.add(btn11);
-		
+
 		pCombo = new JPanel();
 		pCombo.setBorder(new TitledBorder(null, "JComboBox", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		contentPane.add(pCombo);
 		pCombo.setLayout(new GridLayout(0, 1, 0, 0));
-		
+
 		btn12 = new JButton("JComboBox 예1");
 		btn12.addActionListener(this);
 		pCombo.add(btn12);
-		
+
 		btn13 = new JButton("JComboBox 예2");
-		btn13.addActionListener(this);
+
+		btn13.addActionListener(e -> {
+			JComboBoxEx2 frame = new JComboBoxEx2();
+			frame.setVisible(true);
+		});
+
 		pCombo.add(btn13);
-		
+
 		btn14 = new JButton("JComboBox 예3");
-		btn14.addActionListener(this);
+//		btn14.addActionListener(this);
+		btn14.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+//				System.out.println("mouseReleased()");
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				JComboBoxEx3 frame = new JComboBoxEx3();
+				frame.setVisible(true);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+//				System.out.println("mouseExited()");
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+//				System.out.println("mouseEntered()");
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+//				System.out.println("mouseClicked()");
+			}
+		});
 		pCombo.add(btn14);
-		
+
 		pSliderSpinner = new JPanel();
 		contentPane.add(pSliderSpinner);
 		pSliderSpinner.setLayout(new GridLayout(0, 1, 0, 0));
-		
+
 		pSlider = new JPanel();
 		pSlider.setBorder(new TitledBorder(null, "JSlider", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		pSliderSpinner.add(pSlider);
 		pSlider.setLayout(new BorderLayout(0, 0));
-		
+
 		btn15 = new JButton("JSlider 예");
-		btn15.addActionListener(this);
+		btn15.addActionListener(new myActionListener());
 		pSlider.add(btn15, BorderLayout.CENTER);
-		
+
 		pSpinner = new JPanel();
 		pSpinner.setBorder(new TitledBorder(null, "JSpinner", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		pSliderSpinner.add(pSpinner);
 		pSpinner.setLayout(new BorderLayout(0, 0));
-		
+
 		btn16 = new JButton("JSpinner 예");
-		btn16.addActionListener(this);
+		btn16.addActionListener(listener);
 		pSpinner.add(btn16, BorderLayout.CENTER);
-		
+
 		pTabbedPane = new JPanel();
-		pTabbedPane.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "JTabbedPane & JTable", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		pTabbedPane.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "JTabbedPane & JTable",
+				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		contentPane.add(pTabbedPane);
-		
+
 		btn17 = new JButton("JTabbedPane 예");
-		btn17.addActionListener(this);
+		btn17.addActionListener(listener);
 		pTabbedPane.setLayout(new GridLayout(0, 1, 0, 0));
 		pTabbedPane.add(btn17);
-		
+
 		btn18 = new JButton("JTable 예");
-		btn18.addActionListener(this);
+		btn18.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(null, e.getPoint());
+			}
+
+		});
+		btn18.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println(e.getActionCommand());
+				JTableEx frame = new JTableEx();
+				frame.setVisible(true);
+
+			}
+		});
+
 		pTabbedPane.add(btn18);
+		
+		panel = new JPanel();
+		panel.setBorder(new TitledBorder(null, "\uC774\uBCA4\uD2B8 \uB9AC\uC2A4\uB108", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		contentPane.add(panel);
+		panel.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		btn19 = new JButton("독립클래스");
+		btn19.addActionListener(this);
+		panel.add(btn19);
+		
+		btn20 = new JButton("내부클래스");
+		btn20.addActionListener(this);
+		panel.add(btn20);
+		
+		btn21 = new JButton("익명클래스");
+		btn21.addActionListener(this);
+		panel.add(btn21);
+		
+		btn22 = new JButton("마우스리스너");
+		btn22.addActionListener(this);
+		panel.add(btn22);
+		
+		btn23 = new JButton("마우스어댑터");
+		btn23.addActionListener(this);
+		panel.add(btn23);
+		
+		panel_1 = new JPanel();
+		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "JMenu & JPop", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		contentPane.add(panel_1);
+		panel_1.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		btn24 = new JButton("JMenu 예");
+		btn24.addActionListener(this);
+		panel_1.add(btn24);
+		
+		btn25 = new JButton("JPopupMenu 예");
+		btn25.addActionListener(this);
+		panel_1.add(btn25);
+		
+		panel_2 = new JPanel();
+		panel_2.setBorder(new TitledBorder(null, "JOptionPane", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		contentPane.add(panel_2);
+		panel_2.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		btn26 = new JButton("InputDlg");
+		btn26.addActionListener(this);
+		panel_2.add(btn26);
+		
+		btn27 = new JButton("ConfirmDlg");
+		btn27.addActionListener(this);
+		panel_2.add(btn27);
+		
+		btn28 = new JButton("MessageDlg");
+		btn28.addActionListener(this);
+		panel_2.add(btn28);
+		
+		panel_3 = new JPanel();
+		panel_3.setBorder(new TitledBorder(null, "JFileChooser", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		contentPane.add(panel_3);
+		
+		btn29 = new JButton("JFileChooser");
+		btn29.addActionListener(this);
+		panel_3.add(btn29);
+	}
+
+	ActionListener listener = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == btn17) {
+				JTabbedPaneEx frame = new JTabbedPaneEx();
+				frame.setVisible(true);
+			}
+			if (e.getSource() == btn16) {
+				actionPerformedBtn16(e);
+			}
+		}
+	};
+	private JPanel panel;
+	private JButton btn19;
+	private JButton btn20;
+	private JButton btn21;
+	private JButton btn22;
+	private JPanel panel_1;
+	private JButton btn24;
+	private JButton btn25;
+	private JButton btn23;
+	private JPanel panel_2;
+	private JButton btn26;
+	private JButton btn27;
+	private JButton btn28;
+	private JPanel panel_3;
+	private JButton btn29;
+
+	class myActionListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			JSliderEx frame = new JSliderEx();
+			frame.setVisible(true);
+		}
+	}
+
+	// 수업
+	protected void actionPerformedBtn16(ActionEvent e) {
+		JSpinnerEx frame = new JSpinnerEx();
+		frame.setVisible(true);
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btn18) {
-			actionPerformedBtn18(e);
+		if (e.getSource() == btn29) {
+			actionPerformedBtn29(e);
 		}
+		if (e.getSource() == btn28) {
+			actionPerformedBtn28(e);
+		}
+		if (e.getSource() == btn27) {
+			actionPerformedBtn27(e);
+		}
+		if (e.getSource() == btn26) {
+			actionPerformedBtn26(e);
+		}
+		if (e.getSource() == btn23) {
+			actionPerformedBtn23(e);
+		}
+		if (e.getSource() == btn25) {
+			actionPerformedBtn25(e);
+		}
+		if (e.getSource() == btn24) {
+			actionPerformedBtn24(e);
+		}
+		if (e.getSource() == btn22) {
+			actionPerformedBtn22(e);
+		}
+		if (e.getSource() == btn21) {
+			actionPerformedBtn21(e);
+		}
+		if (e.getSource() == btn20) {
+			actionPerformedBtn20(e);
+		}
+		if (e.getSource() == btn19) {
+			actionPerformedBtn19(e);
+		}
+
 		if (e.getSource() == btn0402) {
 			actionPerformedBtn0402(e);
 		}
-		if (e.getSource() == btn17) {
-			actionPerformedBtn17(e);
-		}
-		if (e.getSource() == btn16) {
-			actionPerformedBtn16(e);
-		}
-		if (e.getSource() == btn15) {
-			actionPerformedBtn15(e);
-		}
-		if (e.getSource() == btn14) {
-			actionPerformedBtn14(e);
-		}
-		if (e.getSource() == btn13) {
-			actionPerformedBtn13(e);
-		}
+
 		if (e.getSource() == btn12) {
 			actionPerformedBtn12(e);
 		}
@@ -382,61 +570,92 @@ public class SwingMain extends JFrame implements ActionListener {
 		list.add(new Fruit("배", 500));
 		list.add(new Fruit("체리", 2000));
 		list.add(new Fruit("바나나", 1000));
-		list.add(new Fruit("수박", 1500));		
+		list.add(new Fruit("수박", 1500));
 
 		JCheckBoxCustomEx frame1 = new JCheckBoxCustomEx(list);
 		frame1.setVisible(true);
 	}
+
 	protected void actionPerformedBtn07(ActionEvent e) {
 		JRadioButtonEx frame = new JRadioButtonEx();
 		frame.setVisible(true);
 	}
+
 	protected void actionPerformedBtn08(ActionEvent e) {
 		JTextFieldAreaEx frame = new JTextFieldAreaEx();
 		frame.setVisible(true);
 	}
+
 	protected void actionPerformedBtn09(ActionEvent e) {
 		JListEx frame = new JListEx();
 		frame.setVisible(true);
 	}
+
 	protected void actionPerformedBtn10(ActionEvent e) {
 		JListEx2 frame = new JListEx2();
 		frame.setVisible(true);
 	}
+
 	protected void actionPerformedBtn11(ActionEvent e) {
 		JListEx3 frame = new JListEx3();
 		frame.setVisible(true);
 	}
+
 	protected void actionPerformedBtn12(ActionEvent e) {
 		JComboBoxEx1 frame = new JComboBoxEx1();
 		frame.setVisible(true);
 	}
-	protected void actionPerformedBtn13(ActionEvent e) {
-		JComboBoxEx2 frame = new JComboBoxEx2();
-		frame.setVisible(true);
-	}
-	protected void actionPerformedBtn14(ActionEvent e) {
-		JComboBoxEx3 frame = new JComboBoxEx3();
-		frame.setVisible(true);
-	}
-	protected void actionPerformedBtn15(ActionEvent e) {
-		JSliderEx frame = new JSliderEx();
-		frame.setVisible(true);
-	}
-	protected void actionPerformedBtn16(ActionEvent e) {
-		JSpinnerEx frame = new JSpinnerEx();
-		frame.setVisible(true);
-	}
-	protected void actionPerformedBtn17(ActionEvent e) {
-		JTabbedPaneEx frame = new JTabbedPaneEx();
-		frame.setVisible(true);
-	}
+
 	protected void actionPerformedBtn0402(ActionEvent e) {
 		JlabelEx1 frame = new JlabelEx1();
 		frame.setVisible(true);
 	}
-	protected void actionPerformedBtn18(ActionEvent e) {
-		JTableEx frame = new JTableEx();
+
+	protected void actionPerformedBtn19(ActionEvent e) {
+		IndepClassListener frame = new IndepClassListener();
+		frame.setVisible(true);
+	}
+	protected void actionPerformedBtn20(ActionEvent e) {
+		InnerClassListener frame = new InnerClassListener();
+		frame.setVisible(true);
+	}
+	protected void actionPerformedBtn21(ActionEvent e) {
+		AnonymousClassListener frame = new AnonymousClassListener();
+		frame.setVisible(true);
+	}
+	protected void actionPerformedBtn22(ActionEvent e) {
+		MouseListenerEx frame = new MouseListenerEx();
+		frame.setVisible(true);
+	}
+	
+	protected void actionPerformedBtn23(ActionEvent e) {
+		MouseAdapterEx frame = new MouseAdapterEx();
+		frame.setVisible(true);
+	}
+	
+	protected void actionPerformedBtn24(ActionEvent e) {
+		JMenuFrameEx frame = new JMenuFrameEx();
+		frame.setVisible(true);
+	}
+	protected void actionPerformedBtn25(ActionEvent e) {
+		JPopupMenuFrameEx frame = new JPopupMenuFrameEx();
+		frame.setVisible(true);
+	}
+	
+	protected void actionPerformedBtn26(ActionEvent e) {
+		JOptionPanmeInputEx frame = new JOptionPanmeInputEx();
+		frame.setVisible(true);
+	}
+	protected void actionPerformedBtn27(ActionEvent e) {
+		JOptionPanmeConfirmEx frame = new JOptionPanmeConfirmEx();
+		frame.setVisible(true);
+	}
+	protected void actionPerformedBtn28(ActionEvent e) {
+		JOptionPanmeMessagetEx frame = new JOptionPanmeMessagetEx();
+		frame.setVisible(true);
+	}
+	protected void actionPerformedBtn29(ActionEvent e) {
+		JFileChooserEx frame = new JFileChooserEx();
 		frame.setVisible(true);
 	}
 }

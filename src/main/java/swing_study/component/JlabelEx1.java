@@ -1,4 +1,4 @@
-package swing_study;
+package swing_study.component;
 
 import java.awt.GridLayout;
 import java.awt.Image;
